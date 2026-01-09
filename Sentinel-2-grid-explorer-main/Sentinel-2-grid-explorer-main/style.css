@@ -1,0 +1,497 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Map container */
+#map {
+    height: 100vh;
+    width: 100vw;
+}
+
+.github-control {
+    margin: 10px 10px 0 0;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.leaflet-bar.github-control .github-control__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: #5b6575;
+    background: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.leaflet-bar.github-control .github-control__link:hover,
+.leaflet-bar.github-control .github-control__link:focus {
+    background: #e9f1ff;
+    color: #0f172a;
+}
+
+.leaflet-bar.github-control .github-control__link:focus {
+    outline: 2px solid #4f83ff;
+    outline-offset: 2px;
+}
+
+.github-control__icon {
+    width: 22px;
+    height: 22px;
+    display: block;
+    fill: currentColor;
+}
+
+/* Loading indicator */
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#loading.hidden {
+    display: none;
+}
+
+/* Spinner animation */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.selectable-label {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    cursor: text !important;
+    pointer-events: auto !important;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Search container */
+#search-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+#grid-search {
+    width: 260px;
+    max-width: calc(100vw - 40px);
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+}
+
+#grid-search::placeholder {
+    color: #999;
+}
+
+#search-results {
+    max-height: 200px;
+    overflow-y: auto;
+    background: white;
+    border-top: 1px solid #eee;
+    display: none;
+}
+
+#search-results.show {
+    display: block;
+}
+
+.search-result {
+    padding: 8px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.search-result:hover {
+    background-color: #f8f9fa;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.search-result-info {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+}
+
+.no-results {
+    padding: 10px 15px;
+    color: #999;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Custom Leaflet control styling */
+.leaflet-control-container .leaflet-control {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+}
+
+.leaflet-control-zoom a {
+    color: #333;
+    text-decoration: none;
+}
+
+.leaflet-control-zoom a:hover {
+    background: #f0f0f0;
+}
+
+/* Grid labels */
+
+/* Share link panel */
+#share-link-container {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+    width: min(320px, calc(100vw - 20px));
+    background: #ffffff;
+    border: 1px solid #c9ccd3;
+    border-radius: 6px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#share-link-container.hidden {
+    display: none;
+}
+
+#share-link-options {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(68px, 1fr));
+    gap: 6px;
+    max-height: calc((28px * 4) + (6px * 3));
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+}
+
+#share-link-options.hidden {
+    display: none;
+}
+
+.share-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border: 1px solid #cfd4db;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #2f3b4a;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    line-height: 1.1;
+    box-sizing: border-box;
+}
+
+.share-option.active {
+    background: #e4f2ff;
+    border-color: #6aa3e6;
+    color: #1f2b38;
+}
+
+/* Keep hover styling on devices that support it without triggering red taps on touch */
+@media (hover: hover) {
+    .share-option:hover {
+        background: #fde8e8;
+        border-color: #f08d8d;
+        color: #7f1d1d;
+    }
+
+    .share-option.active:hover {
+        background: #fde8e8;
+        border-color: #f08d8d;
+        color: #7f1d1d;
+    }
+}
+
+.share-option-name {
+    flex: 0 0 auto;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#share-link-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+#share-link-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#share-link-options::-webkit-scrollbar-thumb {
+    background: #cfd4db;
+    border-radius: 3px;
+}
+
+#share-link-input-row {
+    display: flex;
+    gap: 8px;
+}
+
+#share-link-input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid #cfd4db;
+    border-radius: 4px;
+    font-size: 13px;
+    background: #ffffff;
+    color: #1f2b38;
+}
+
+.share-link-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+    align-items: stretch;
+}
+
+.share-link-actions button {
+    width: 100%;
+}
+
+#share-link-copy {
+    padding: 6px 12px;
+    border: 1px solid #b8c1cc;
+    border-radius: 4px;
+    background: #f4f6f9;
+    color: #1f2b38;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#share-link-copy:hover {
+    background: #e8f1ff;
+    border-color: #8fb4e8;
+}
+
+#share-zoom-selection {
+    padding: 6px 12px;
+    border: 1px solid #a9d9b0;
+    border-radius: 4px;
+    background: #e6f7e8;
+    color: #1e5c33;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#share-zoom-selection:hover {
+    background: #d4efdb;
+    border-color: #6fb781;
+}
+
+#share-clear-selection {
+    padding: 6px 12px;
+    border: 1px solid #f0b6b6;
+    border-radius: 4px;
+    background: #fdecec;
+    color: #8b1d1d;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#share-clear-selection:hover {
+    background: #fbd5d5;
+    border-color: #f08d8d;
+}
+
+#share-link-feedback {
+    font-size: 12px;
+    color: #5b6575;
+    grid-column: 1 / -1;
+}
+
+#share-link-feedback:empty {
+    display: none;
+}
+
+.share-export-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.share-export-actions button {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #cfd4db;
+    border-radius: 4px;
+    background: #f4f6f9;
+    color: #1f2b38;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.share-export-actions button:hover {
+    background: #e9f1ff;
+    border-color: #8fb4e8;
+}
+
+/* Grid labels */
+.leaflet-pane.highlight-pane .selection-halo path {
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+}
+
+.leaflet-pane.highlight-pane .selection-core path {
+    mix-blend-mode: screen;
+}
+
+.leaflet-pane.highlight-pane .selection-hover path {
+    mix-blend-mode: multiply;
+}
+
+.grid-label {
+    background: none !important;
+    border: none !important;
+}
+
+.grid-label span {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.grid-label .selectable-label {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    cursor: default !important;
+    pointer-events: none !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    font-weight: 600 !important;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+    line-height: 1.2 !important;
+    font-size: 11px !important;
+    color: #333 !important;
+    position: relative;
+    z-index: 1000;
+    isolation: isolate;
+    contain: layout style;
+}
+
+.no-coverage-tooltip {
+    background: rgba(66, 66, 66, 0.95);
+    color: #ffeb3b;
+    border: 1px solid #757575;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #loading {
+        padding: 1.5rem;
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        max-width: 300px;
+    }
+
+
+    #search-container {
+        left: 10px;
+        top: 10px;
+        width: auto;
+        max-width: calc(100vw - 20px);
+    }
+
+    #grid-search {
+        width: clamp(180px, 60vw, 220px);
+        max-width: calc(100vw - 40px);
+    }
+
+    #share-link-options {
+        grid-template-columns: repeat(3, minmax(68px, 1fr));
+    }
+}
