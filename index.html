@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel-2 Grid Explorer</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.82em' x='50%' dominant-baseline='middle' text-anchor='middle' font-size='80'%3E🛰️%3C/text%3E%3C/svg%3E">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Navbar styles */
+ nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #003366;
+  padding: 10px 20px;
+  color: white;
+}
+
+nav .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin:10px;
+  align-items: center;
+}
+
+.logo-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo {
+  height: 30px;
+  width: 220px;
+}
+.powered-by {
+  font-size: 0.75rem;
+  margin-bottom: 4px;
+  color: #fff; /* Use white for best contrast */
+  text-align: center;
+  
+}
+
+/* Push map down below navbar */
+#map {
+    position: absolute;
+    top: 6%; /* increased to leave space for search box too */
+    bottom: 0;
+    width: 100%;
+}
+
+#search-container input#grid-search {
+    background: transparent;
+    border: none;
+    color: #222;
+    font-size: 1rem;
+    width: 100%;
+    padding: 10px 0;
+    outline: none;
+}
+
+#search-container {
+    position: absolute;
+    top: 60px; /* height of nav bar, adjust if changed */
+    left: 20px; /* left alignment with navbar padding */
+    width: 300px; /* fixed width for compact look */
+    background: white;
+    border-radius: 8px;
+    z-index: 1000;
+    padding: 10px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* optional for elevation */
+    display: flex;
+    align-items: center;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+<nav>
+  <div class="title">Sentinel-2 Grid Explorer</div>
+  <div class="logo-group">
+    <img src="images/office_logo.png" alt="Office Logo" class="logo" />
+    <div class="powered-by">Powered by Geo-Intel Lab, IITNiF</div>
+  </div>
+</nav>
+
+    <div id="map"></div>
+
+    <!-- Loading indicator -->
+    <div id="loading">
+        <div class="spinner"></div>
+        <p>Loading Sentinel-2 grids...</p>
+    </div>
+
+    <!-- Search box -->
+    <div id="search-container">
+        <input type="text" id="grid-search" placeholder="Search grid by name (e.g. 01CCV)" autocomplete="off">
+        <div id="search-results"></div>
+    </div>
+
+    <!-- Share link panel -->
+    <div id="share-link-container" class="hidden">
+        <div id="share-link-options" class="hidden"></div>
+        <div id="share-link-input-row">
+            <input id="share-link-input" type="text" readonly>
+            <button id="share-link-copy" type="button">Copy</button>
+        </div>
+        <div class="share-link-actions">
+            <button id="share-clear-selection" type="button" class="danger">Clear selection</button>
+            <button id="share-zoom-selection" type="button">Zoom to selection</button>
+            <span id="share-link-feedback" aria-live="polite"></span>
+        </div>
+        <div class="share-export-actions">
+            <button id="share-download-geojson" type="button">Download GeoJSON</button>
+            <button id="share-download-csv" type="button">Download CSV</button>
+        </div>
+    </div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
